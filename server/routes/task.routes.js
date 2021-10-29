@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     if(dataResponse.data.results.length >= 0){
         for(let i = 0; i < dataResponse.data.results.length; i++){
             //Peticion para la imagen
-            const internData = await axios.get(dataResponse.data.results[1].url);
+            const internData = await axios.get(dataResponse.data.results[i].url);
             
             const name = dataResponse.data.results[i].name;
             const dexNumber = internData.data.sprites.front_default;
@@ -22,9 +22,10 @@ router.get('/', async (req, res) => {
                 if(doc == null){
                     task = new Pokemon({name, dexNumber});
                     await task.save();
-                }else{
-                    console.log('Este pokemon ya existe');
                 }
+                //else{
+                //    console.log('Este pokemon ya existe');
+                //}
             });
         }
         
